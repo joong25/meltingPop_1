@@ -1,6 +1,7 @@
 import pymysql
-from crawling.crawling_music_database2 import song_list, singer_list
+from crawling_music_database2 import song_list, singer_list
 
+length = len(song_list)
 conn = pymysql.connect(host='localhost', user='root',
                        password='1234', db='meltingpop_db_1', charset='utf8mb4')
 
@@ -25,10 +26,10 @@ try:
     conn.commit()
 except:
     conn.rollback()
-for i in song_list:
-    cursor.execute('insert into song_info(song) values("'+i+'")')
-for i in singer_list:
-    cursor.execute("insert into song_info(singer) values('"+i+"')")
+for i in range(0, length):
+    cursor.execute('insert into song_info (song, singer) values ("' +
+                   song_list[i]+'","'+singer_list[i]+'")')
+
 conn.commit()
 
 conn.close()
