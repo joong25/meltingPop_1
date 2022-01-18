@@ -1,4 +1,5 @@
-from urllib.parse import quote_plus    # 한글 텍스트를 퍼센트 인코딩으로 변환
+from urllib.parse import quote_plus
+from xmlrpc.client import Boolean    # 한글 텍스트를 퍼센트 인코딩으로 변환
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait   # 해당 태그를 기다림
@@ -25,8 +26,15 @@ try:
         lyric_click = driver.find_elements_by_class_name(
             'btn.button_icons.type03.song_info')[index]
         lyric_click.click()
-        lyric_data = driver.find_element_by_class_name('lyric')
-        lyric_list.append(lyric_data.text)
+        try:
+            displayNoLyric = driver.find_element_by_class_name(
+                'lyric_none').is_displayed()
+
+            lyric_list.append('none')
+
+        except:
+            lyric_data = driver.find_element_by_class_name('lyric')
+            lyric_list.append(lyric_data.text)
         driver.back()
 
 
@@ -35,3 +43,5 @@ except TimeoutException:
 
 finally:
     driver.quit()
+print(lyric_list[7])
+print(lyric_list[8])
