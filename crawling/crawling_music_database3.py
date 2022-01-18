@@ -15,27 +15,23 @@ driver = webdriver.Chrome(chromedriver, options=options)
 driver.get(url)
 
 try:
+    lyric_list = []
+    lyric_info = driver.find_elements_by_class_name(
+        'btn.button_icons.type03.song_info')
 
-    element = WebDriverWait(driver, 5).until(
-        EC.presence_of_element_located((By.CLASS_NAME, 'wrap_song_info'))
-    )
-    song_list = []
-    singer_list = []
-
-    song_data = driver.find_elements_by_class_name('ellipsis.rank01')
-    singer_data = driver.find_elements_by_class_name('ellipsis.rank02')
-
-    for k in song_data:
-        song_list.append(k.text)
-
-    for k in singer_data:
-        singer_list.append(k.text)
+    lyric_info_length = len(lyric_info)
+    for index in range(lyric_info_length):
+        # driver.back을 사용했을 때 DOM 갱신을 막기 위해 추가 코드 입력(for 문을 length 활용)
+        lyric_click = driver.find_elements_by_class_name(
+            'btn.button_icons.type03.song_info')[index]
+        lyric_click.click()
+        lyric_data = driver.find_element_by_class_name('lyric')
+        lyric_list.append(lyric_data.text)
+        driver.back()
 
 
 except TimeoutException:
-    print('해당 페이지에 곡 정보가 존재하지 않습니다.')
+    print("곡 정보가 없습니다.")
 
 finally:
     driver.quit()
-# for i in song_list:
- #   print(i)
