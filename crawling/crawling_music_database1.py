@@ -1,5 +1,6 @@
 import pymysql
 from crawling_music_database2 import song_list, singer_list
+from crawling_music_database3 import lyric_list
 
 length = len(song_list)
 conn = pymysql.connect(host='localhost', user='root',
@@ -22,14 +23,16 @@ try:
     cursor.execute("""create table song_info(
                         song varchar(50),
                         singer varchar(50), 
-                        lyric varchar(5000))""")
+                        lyric varchar(12000))""")
     conn.commit()
 except:
     conn.rollback()
+# insert into song_info (song, singer, lyric) values ("hi","bye","hello")
 for i in range(0, length):
-    cursor.execute('insert into song_info (song, singer) values ("' +
-                   song_list[i]+'","'+singer_list[i]+'")')
-
+    # cursor.execute('insert into song_info (song, singer, lyric) values ("' +
+    #               song_list[i]+'","'+singer_list[i]+'","'+lyric_list[i]+'")')
+    cursor.execute('insert into song_info (song, singer, lyric) values (%s,%s,%s)',
+                   (song_list[i], singer_list[i], lyric_list[i]))
 conn.commit()
 
 conn.close()

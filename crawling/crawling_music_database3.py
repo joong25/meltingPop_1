@@ -43,5 +43,3 @@ except TimeoutException:
 
 finally:
     driver.quit()
-print(lyric_list[7])
-print(lyric_list[8])
