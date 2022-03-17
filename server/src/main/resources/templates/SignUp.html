@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>회원가입 페이지</title>
+</head>
+<body>
+계정 정보를 입력해주세요!
+
+<form action="/joinUs.do" method="post">
+    <div>
+        <label for="UserID">아이디: </label>
+        <input id="UserID" name="UserID" type="text">
+    </div>
+    <div>
+        <label for="UserPW">패스워드: </label>
+        <input id="UserPW" name="UserPW" type="password">
+    </div>
+    <div>
+        <label for="UserEmail">이메일: </label>
+        <input id="UserEmail" name="UserEmail" type="text">
+    </div>
+
+    <input type="submit" value="가입하기">
+</form>
+</body>
+</html>
