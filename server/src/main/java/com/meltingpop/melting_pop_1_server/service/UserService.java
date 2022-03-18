@@ -15,4 +15,10 @@ public class UserService {
     public void joinUser(UserVO vo){
         userRepository.save(vo);
     }
+
+    public UserVO loginUser(String UserId, String UserPW){
+        UserVO userVO = userRepository.selectUserInfo(UserId,UserPW);
+        return userVO;
+    }
+
 }
